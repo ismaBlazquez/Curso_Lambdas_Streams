@@ -35,7 +35,7 @@ public class Validador <T> {
 	}
 	
 	// falta un metodo add que admite nuevas validaciones
-	public void add(Predicate<T> newVal) {
-		validadores.add(newVal);
+	public void add (Predicate<T> nuevo) {
+		validadores.add(nuevo);
 	}
 }

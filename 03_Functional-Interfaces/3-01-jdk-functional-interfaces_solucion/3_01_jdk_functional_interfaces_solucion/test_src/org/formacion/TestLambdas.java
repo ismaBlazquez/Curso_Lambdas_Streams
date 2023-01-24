@@ -21,7 +21,7 @@ public class TestLambdas {
 	@Test
 	public void test_function() {
 		
-		IntUnaryOperator cuadrado = i -> i * i;
+		IntUnaryOperator cuadrado = a -> a * a;
 		
 		assertEquals(0, cuadrado.applyAsInt(0));
 		assertEquals(1, cuadrado.applyAsInt(1));
@@ -36,11 +36,7 @@ public class TestLambdas {
 	@Test
 	public void test_funcion_2() {
 		
-		LongBinaryOperator menor = (a, b) -> {
-			if(a < b) return a;
-			else return b;
-		};
-		//LongBinaryOperator menor = (a,b) -> a < b?a:b;
+		LongBinaryOperator menor = (a,b) -> a < b?a:b;
 		
 		assertEquals(-2, menor.applyAsLong(-2, 3));
 		assertEquals(5, menor.applyAsLong(10, 5));
@@ -65,21 +61,22 @@ public class TestLambdas {
 		Persona personaNoPariente = new Persona ("nombre","otro","otro");
 		
 		// Cread una funcion que indique si el segundo apellido de una persona es null
-		Predicate<Persona> apellidoNulo = p -> p.getApellido2() == null;
-		assertEquals(true, apellidoNulo.test(personaSinSegundoApellido));
-		assertEquals(false, apellidoNulo.test(personaConSegundoApellido));
+		Predicate<Persona> segundoApellidoEsNull = p -> p.getApellido2() == null;
+		
+		assertTrue( segundoApellidoEsNull.test(personaSinSegundoApellido));
+		assertFalse( segundoApellidoEsNull.test(personaConSegundoApellido));
 		
 		// Una funcion que nos diga si dos personas son parientes: para nosotros parientes
 		// son personas con el mismo primer apellido
-		BiPredicate<Persona, Persona> personasParientes = (p1, p2) -> p1.getApellido1().equals(p2.getApellido1());
 		
-		assertTrue(personasParientes.test(personaSinSegundoApellido, personaConSegundoApellido));
-		assertFalse(personasParientes.test(personaConSegundoApellido, personaNoPariente));
+		BiPredicate<Persona,Persona> sonParientes = (p1,p2) -> p1.getApellido1().equals(p2.getApellido1());
 		
+		assertTrue(sonParientes.test(personaSinSegundoApellido, personaConSegundoApellido));
+		assertFalse(sonParientes.test(personaSinSegundoApellido, personaNoPariente));
 		
 		// Una funcion que "enmascare" los datos de una persona: debe permutar los valores de sus
 		// y nombre
-
+		
 		Consumer<Persona> mask = p -> {
 			String tmp = p.getApellido1();
 			p.setApellido1(p.getApellido2());
@@ -92,6 +89,7 @@ public class TestLambdas {
 		assertEquals("apellido1", personaConSegundoApellido.getNombre());
 		assertEquals("apellido2", personaConSegundoApellido.getApellido1());
 		assertEquals("nombre", personaConSegundoApellido.getApellido2());
+		
 	}
 	
 	
@@ -108,8 +106,7 @@ public class TestLambdas {
 		 */
 		Validador<Persona> validador = new Validador<Persona>();
 		
-		/* pasar un predicado que mire si el primer apellido es distinto de null */
-		validador.add(p -> p.getApellido1() != null);
+		validador.add( p -> p.getApellido1() != null );
 		
 		assertTrue(validador.valida(new Persona("nombre","ape1","ape2")));
 		assertFalse(validador.valida(new Persona("nombre",null,"ape2")));
