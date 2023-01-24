@@ -27,7 +27,7 @@ public class TestAgrupador {
 	
 	/**
 	 * definid un metodo default addAll que acepte un Collection y
-	 * añada cada objeto al agrupador
+	 * a�ada cada objeto al agrupador
 	 * Cuando tengais el metodo, descomentad el codigo comentado en el test
 	 */
 	@Test
