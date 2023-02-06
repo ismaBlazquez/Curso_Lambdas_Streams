@@ -10,7 +10,7 @@ public class CollectionUtil {
 	 * tengan un nombre con un espacio en blanco 
 	 */
 	public void eliminaNombresConEspacios(List<Persona> original) {
-		original.removeIf(p -> p.getNombre().contains(" "));
+		original.removeIf(it -> it.getNombre().indexOf(' ') != -1);
 	}
 	
 	/**
@@ -32,8 +32,8 @@ public class CollectionUtil {
 	 * El metodo debe devolver "prod1:4,prod2:5," 
 	 */
 	public String aTexto (Map<String, Integer> factura) {
-		StringBuilder sb = new StringBuilder();
-		factura.forEach((k, v) -> sb.append(k).append(":").append(v).append(","));
-		return sb.toString();
+		StringBuilder result = new StringBuilder();
+		factura.forEach((k,v) -> result.append(k + ":" + v + ","));
+		return result.toString();
 	}
 }
