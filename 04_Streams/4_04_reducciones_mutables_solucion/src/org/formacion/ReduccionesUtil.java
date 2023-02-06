@@ -3,11 +3,10 @@ package org.formacion;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Para las soluciones de estos ejercicios utiliza streams, las 
- * operaciones intermedias que necesites y una operaciï¿½n terminal
+ * operaciones intermedias que necesites y una operación terminal
  * con una estructura mutante.
  */
 public class ReduccionesUtil {
@@ -15,7 +14,7 @@ public class ReduccionesUtil {
 	/**
 	 * Devuelve una coleccion con los Strings de la lista original con:
 	 *  - los nulls eliminados del resultado
-	 *  - el resto pasado a mayï¿½sculas.
+	 *  - el resto pasado a mayúsculas.
 	 *  
 	 *  Es decir, si pasamos
 	 *  {"a",null,"b",null} debe devolver {"A","B"}
@@ -23,10 +22,12 @@ public class ReduccionesUtil {
 	 */
 	public Collection<String> obtenSinNulosYMayusculas(List<String> original) {
 		
-		return original.stream()
-				.filter(a -> a!=null)
-				.map(String::toUpperCase)
-				.collect(Collectors.toList());
+		Collection<String> result = new ArrayList<>();
+		original.stream()
+		         .filter(it -> it != null)
+		         .map(it -> it.toUpperCase())
+				.forEach(it ->result.add(it));
+		return result;
 	}
 
 	/**
@@ -44,15 +45,7 @@ public class ReduccionesUtil {
 		 */
 		int[] acumular = {0,0};
 		
-		numeros.stream().forEach(a -> {
-			if(a%2 == 0) {
-				acumular[0]++;
-			} else {
-				acumular[1]++;
-			}
-		});
-		
-		//OTRA SOLUCION: numeros.stream().forEach(it -> acumular[it % 2] += 1);
+		numeros.stream().forEach(it -> acumular[it % 2] += 1);
 		
 		return acumular;
 		
