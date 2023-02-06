@@ -22,14 +22,14 @@ public class PersonaUtil {
      * Devuelve stream con las personas que no tiene segundo apellido
      */
     public Stream<Persona> listaSinApellido2() {
-        return bbdd.stream().filter(p -> !p.getApellido2().isPresent());
+        return bbdd.stream().filter(p -> ! p.getApellido2().isPresent());
     }
 
     /**
      * Devuelve stream con los nombres de todas las personas
      */
     public Stream<String> listaNombres() {
-        return bbdd.stream().map(Persona::getNombre);
+        return bbdd.stream().map(p -> p.getNombre());
     }
 
     /**
@@ -38,8 +38,8 @@ public class PersonaUtil {
      */
     public Stream<String> listaApellido1Ordenada() {
         return bbdd.stream()
-        		.map(Persona::getApellido1)
-        		.sorted((ap1, ap2) -> ap1.compareToIgnoreCase(ap2));
+        		       .map(p-> p.getApellido1())
+        		       .sorted( (p1,p2) -> p1.compareToIgnoreCase(p2));
     }
 
 }
